@@ -69,82 +69,82 @@ const readInput = async (message) => {
     return desc;
 }
 
-// const listToDelete = async (tasks = []) => {
+const listToDelete = async (places = []) => {
 
-//     const choices = tasks.map((task, i) => {
+    const choices = places.map((place, i) => {
 
-//         const id = `${i + 1}`.blue;
+        const id = `${i + 1}`.blue;
 
-//         return {
-//             value: task.id,
-//             name: `${id} ${task.desc}`
-//         }
-//     });
+        return {
+            value: place.id,
+            name: `${id} ${place.name}`
+        }
+    });
 
-//     choices.unshift({
-//         value: '0',
-//         name: '0. Cancelar'.green
-//     });
+    choices.unshift({
+        value: '0',
+        name: '0. Cancel'.green
+    });
 
-//     const questions = [
-//         {
-//             type: 'list',
-//             name: 'id',
-//             message: 'Seleccione la tarea a borrar',
-//             choices
-//         }
-//     ]
+    const questions = [
+        {
+            type: 'list',
+            name: 'id',
+            message: 'Select a city to delete',
+            choices
+        }
+    ]
 
-//     const { id } = await inquirer.prompt(questions);
-//     return id;
-// }
-// const confirm = async (message) => {
+    const { id } = await inquirer.prompt(questions);
+    return id;
+}
+const confirm = async (message) => {
 
-//     const question = [
-//         {
-//             type: 'confirm',
-//             name: 'ok',
-//             message
-//         }
-//     ];
+    const question = [
+        {
+            type: 'confirm',
+            name: 'ok',
+            message
+        }
+    ];
 
-//     const { ok } = await inquirer.prompt(question);
-//     return ok;
-// }
+    const { ok } = await inquirer.prompt(question);
+    return ok;
+}
 
-// const showChecklist = async (tasks = []) => {
+const showChecklist = async (tasks = []) => {
 
-//     const choices = tasks.map((task, i) => {
+    const choices = tasks.map((task, i) => {
 
-//         const id = `${i + 1}`.blue;
+        const id = `${i + 1}`.blue;
 
-//         return {
-//             value: task.id,
-//             name: `${id} ${task.desc}`,
-//             checked: (task.completado) ? true : false
-//         }
-//     });
+        return {
+            value: task.id,
+            name: `${id} ${task.desc}`,
+            checked: (task.completado) ? true : false
+        }
+    });
 
-//     const question = [
-//         {
-//             type: 'checkbox',
-//             name: 'ids',
-//             message: 'Seleccionados',
-//             choices
-//         }
-//     ]
+    const question = [
+        {
+            type: 'checkbox',
+            name: 'ids',
+            message: 'Seleccionados',
+            choices
+        }
+    ]
 
-//     const { ids } = await inquirer.prompt(question);
-//     return ids;
-// }
+    const { ids } = await inquirer.prompt(question);
+    return ids;
+}
 
 
 module.exports = {
     inquirerMenu,
     pause,
     readInput,
-    // listToDelete,
-    // confirm,
-    // showChecklist
+    listToDelete,
+    confirm,
+    showChecklist
 }
 
