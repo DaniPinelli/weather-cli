@@ -7,14 +7,28 @@ class Searches {
     constructor() {
         //Read DB
     }
+
+    get paramsMapbox() {
+        return {
+            'limit': '4',
+            'languaje': 'en',
+            'access_token': process.env.MAPBOX_TOKEN
+        }
+    }
+
     async city(place = '') {
 
         try {
             //Petition to API
-            //console.log('City ', place);
-            const resp = await axios.get('https://reqres.in/api/users?page=2');//(`https://api.openweathermap.org/data/2.5/weather?q=${place}&appid=${process.env.API_KEY}`);
-            console.log(resp.data);
+            const instance = axios.create({
+                baseURL: `https://api.mapbox.com/geocoding/v5/mapbox.places/${place}.json`,
+                params: this.paramsMapbox
+            });
+
+            const resp = await instance.get();
+
             //Return array of cities
+            console.log(resp.data);
             return [];
         } catch (error) {
             return [];
