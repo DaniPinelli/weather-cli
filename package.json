@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node app"  
+    "start": "node app"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.27.2",
     "colors": "^1.4.0",
     "inquirer": "^8.2.4"
   }

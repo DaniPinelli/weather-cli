@@ -49,25 +49,25 @@ const pause = async () => {
     console.log('\n');
 }
 
-// const readInput = async (message) => {
+const readInput = async (message) => {
 
-//     const question = [
-//         {
-//             type: 'input',
-//             name: 'desc',
-//             message,
-//             value(value) {
-//                 if (this.value.length === 0) {
-//                     return 'Por favor ingrese un valor';
-//                 }
-//                 return true;
-//             }
-//         }
-//     ];
+    const question = [
+        {
+            type: 'input',
+            name: 'desc',
+            message,
+            value(value) {
+                if (this.value.length === 0) {
+                    return 'Enter a city: ';
+                }
+                return true;
+            }
+        }
+    ];
 
-//     const { desc } = await inquirer.prompt(question);
-//     return desc;
-// }
+    const { desc } = await inquirer.prompt(question);
+    return desc;
+}
 
 // const listToDelete = async (tasks = []) => {
 
@@ -142,7 +142,7 @@ const pause = async () => {
 module.exports = {
     inquirerMenu,
     pause,
-    // readInput,
+    readInput,
     // listToDelete,
     // confirm,
     // showChecklist
