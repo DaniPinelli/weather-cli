@@ -2,7 +2,7 @@ const axios = require('axios');
 
 class Searches {
 
-    history = ['Rosario', 'Funes', 'Mendoza', 'Córdoba', 'San Luis', 'Mar del Plata'];
+    history = [];
 
     constructor() {
         //Read DB
@@ -75,6 +75,18 @@ class Searches {
         } catch (error) {
             console.log(error);
         }
+    }
+
+    addCityToHistory(city = '') {
+
+        //Add to history
+        this.history.unshift(city);
+
+        //Remove duplicates
+        this.history = this.history.filter((item, index) => this.history.indexOf(item) === index);
+
+        //Save to DB
+
     }
 
 }

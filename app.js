@@ -25,12 +25,21 @@ const main = async () => {
 
                 //Select city
                 const idSelect = await placesList(places);
+
+                //Prevent error if no city is selected
+                if (idSelect === '0') continue;
+
+                //Get weather of city
                 const placeSelect = places.find(place => place.id === idSelect);
+
+                //Store city in DB
+                searches.addCityToHistory(placeSelect.name);
 
                 //Weather forecast
                 const weather = await searches.weatherPlace(placeSelect.lat, placeSelect.long);
                 //Show results
                 console.clear();
+                console.log('\n');
                 console.log('INFO'.green);
                 console.log('City: ', placeSelect.name.blue);
                 console.log('Lat:', placeSelect.lat);
@@ -40,6 +49,15 @@ const main = async () => {
                 console.log('Min:', weather.min);
                 console.log('Max:', weather.max);
                 console.log('\n');
+                break;
+
+            case 2:
+
+                //Show history
+                searches.history.forEach((place) => {
+                    console.log(place);
+                });
+
                 break;
         }
 
