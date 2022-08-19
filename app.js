@@ -1,5 +1,7 @@
 require('dotenv').config();
 
+const _ = require('lodash');
+
 const { inquirerMenu, readInput, pause, placesList } = require('./helpers/inquirer');
 const Searches = require('./models/searches');
 
@@ -44,7 +46,7 @@ const main = async () => {
                 console.log('City: ', placeSelect.name.blue);
                 console.log('Lat:', placeSelect.lat);
                 console.log('Long:', placeSelect.long);
-                console.log('Weather:', weather.desc.blue);
+                console.log('Weather:', _.capitalize(weather.desc).blue);
                 console.log('Temperature:', weather.temp);
                 console.log('Min:', weather.min);
                 console.log('Max:', weather.max);

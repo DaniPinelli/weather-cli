@@ -8,6 +8,7 @@ class Searches {
 
     constructor() {
         //Read DB
+        this.readDB();
     }
 
     get paramsMapbox() {
@@ -35,9 +36,6 @@ class Searches {
                 name: place.place_name,
                 lat: place.center[1],
                 long: place.center[0],
-                // temp: place.recomendations.temperature,
-                // min: place.recomendations.min_temp,
-                // max: place.recomendations.max_temp
 
             }));
 
@@ -82,10 +80,12 @@ class Searches {
     addCityToHistory(city = '') {
 
         //Add to history
-        this.history.unshift(city.toLowerCase());
+        this.history.unshift(city);
 
         //Remove duplicates
         this.history = this.history.filter((item, index) => this.history.indexOf(item) === index);
+        //Only keep the last 3 cities
+        this.history = this.history.slice(0, 3);
         this.storeInDB();
     }
 
@@ -95,6 +95,15 @@ class Searches {
             history: this.history
         }
         fs.writeFileSync(this.dbPath, JSON.stringify(payload));
+    }
+
+    //Read DB
+    readDB() {
+
+        if (fs.existsSync(this.dbPath)) {
+            const payloadDB = JSON.parse(fs.readFileSync(this.dbPath));
+            this.history = payloadDB.history;
+        }
     }
 
 
