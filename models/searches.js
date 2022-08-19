@@ -1,8 +1,10 @@
+const fs = require('fs');
 const axios = require('axios');
 
 class Searches {
 
     history = [];
+    dbPath = './db/searches.json';
 
     constructor() {
         //Read DB
@@ -80,14 +82,21 @@ class Searches {
     addCityToHistory(city = '') {
 
         //Add to history
-        this.history.unshift(city);
+        this.history.unshift(city.toLowerCase());
 
         //Remove duplicates
         this.history = this.history.filter((item, index) => this.history.indexOf(item) === index);
-
-        //Save to DB
-
+        this.storeInDB();
     }
+
+    //Save to DB
+    storeInDB() {
+        const payload = {
+            history: this.history
+        }
+        fs.writeFileSync(this.dbPath, JSON.stringify(payload));
+    }
+
 
 }
 
