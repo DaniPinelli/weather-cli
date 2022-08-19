@@ -10,18 +10,9 @@ class Searches {
 
     get paramsMapbox() {
         return {
-            'limit': '4',
-            'languaje': 'en',
+            'limit': '3',
+            //'languaje': 'en',
             'access_token': process.env.MAPBOX_TOKEN
-        }
-    }
-
-    get paramsOpen() {
-        return {
-            lat,
-            lon,
-            'appid': process.env.OPENWEATHERMAP_TOKEN,
-            'units': 'metric'
         }
     }
 
@@ -35,23 +26,28 @@ class Searches {
             });
 
             const respMap = await instance.get();
-            //console.log(respMap);
+            // console.log(respMap.data.features);
             return respMap.data.features.map(place => ({
+                //Return array of cities
                 id: place.id,
                 name: place.place_name,
                 lat: place.center[1],
                 long: place.center[0],
-                temp: place.recomendations.temperature,
-                min: place.recomendations.min_temp,
-                max: place.recomendations.max_temp
-
+                // temp: place.recomendations.temperature,
+                // min: place.recomendations.min_temp,
+                // max: place.recomendations.max_temp
 
             }));
-            //Return array of cities
-
 
         } catch (error) {
             return [];
+        }
+    }
+
+    get paramsOpen() {
+        return {
+            'appid': process.env.OPENWEATHERMAP_TOKEN,
+            'units': 'metric'
         }
     }
 
@@ -59,15 +55,16 @@ class Searches {
 
         try {
 
-            //Instance axios
+            //Instance Axios
             const instance2 = axios.create({
-                baseURL: `https://api.openweathermap.org/data/2.5/weather`, // ?lat=9.93333 & lon=-84.08333 & appid=9444671991127837d452f11b079214a2 & units=metric`,
+                baseURL: `https://api.openweathermap.org/data/2.5/weather`,
                 params: { ...this.paramsOpen, lat, lon }
             });
 
             //Resp.data
-            const respMap = await instance.get();
-            const { weather, main } = respMap.data;
+            const respOpen = await instance2.get();
+            const { weather, main } = respOpen.data;
+
             return {
                 desc: weather[0].description,
                 min: main.temp_min,

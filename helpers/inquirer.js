@@ -58,7 +58,7 @@ const readInput = async (message) => {
             message,
             value(value) {
                 if (this.value.length === 0) {
-                    return 'Enter a city: ';
+                    //  return 'Enter a city: ';
                 }
                 return true;
             }
@@ -69,15 +69,15 @@ const readInput = async (message) => {
     return desc;
 }
 
-const listToDelete = async (places = []) => {
+const placesList = async (places = []) => {
 
     const choices = places.map((place, i) => {
 
-        const id = `${i + 1}`.blue;
+        const idL = `${i + 1}`.blue;
 
         return {
             value: place.id,
-            name: `${id} ${place.name}`
+            name: `${idL} ${place.name}`
         }
     });
 
@@ -90,7 +90,7 @@ const listToDelete = async (places = []) => {
         {
             type: 'list',
             name: 'id',
-            message: 'Select a city to delete',
+            message: 'Select a city: ',
             choices
         }
     ]
@@ -112,16 +112,16 @@ const confirm = async (message) => {
     return ok;
 }
 
-const showChecklist = async (tasks = []) => {
+const showChecklist = async (places = []) => {
 
-    const choices = tasks.map((task, i) => {
+    const choices = places.map((place, i) => {
 
         const id = `${i + 1}`.blue;
 
         return {
-            value: task.id,
-            name: `${id} ${task.desc}`,
-            checked: (task.completado) ? true : false
+            value: place.id,
+            name: `${id} ${place.desc}`,
+            checked: (place.completado) ? true : false
         }
     });
 
@@ -143,7 +143,7 @@ module.exports = {
     inquirerMenu,
     pause,
     readInput,
-    listToDelete,
+    placesList,
     confirm,
     showChecklist
 }
